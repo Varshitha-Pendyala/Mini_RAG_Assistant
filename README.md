@@ -20,7 +20,7 @@ Query → Embedding → Top-K Retrieval → LLM (GPT-4o-mini) → Answer + Confi
 - Backend: FAISS for semantic search, OpenAI embeddings for vectorization
 - LLM: GPT-4o-mini generates answers strictly from retrieved chunks
 
-##Retrieval & Generation Flow
+### Retrieval & Generation Flow
 - Document Upload: Users upload PDFs, DOCX, or TXT files.
 - Text Extraction & Chunking: Large documents are split into smaller chunks using RecursiveCharacterTextSplitter.
 - Embedding: Each chunk is converted into a semantic vector using OpenAI embeddings.
@@ -29,11 +29,11 @@ Query → Embedding → Top-K Retrieval → LLM (GPT-4o-mini) → Answer + Confi
 - Answer Generation: Retrieved chunks are passed to GPT-4o-mini to produce a grounded answer.
 - Confidence Scoring: Measures relevance of retrieved chunks to indicate answer reliability.
 
-###Confidence Scoring Logic
+### Confidence Scoring Logic
 - Computed based on similarity scores of top-k retrieved chunks
 - Higher similarity → higher confidence
-
 Ensures transparency and shows how much the answer is supported by the document
+
 ### Project Structure
 mini-rag-assistant/
 ├── app.py                  # Main Streamlit app
@@ -63,18 +63,17 @@ mini-rag-assistant/
    # .env or RAG.env
 OPENAI_API_KEY=sk-proj-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-# Optional: Azure Blob Storage
+### Optional: Azure Blob Storage
 AZURE_STORAGE_CONNECTION_STRING=your-connection string
 AZURE_CONTAINER_NAME=your-container-name
 
-Run the app
+### Run the app
 streamlit run app.py
 
-Usage
+### Usage
 Choose Local or Cloud (Azure Blob Storage) in the sidebar
 For Local:
 Upload documents via the uploader
-
 For Cloud:
 Ensure .env has valid Azure credentials
 App loads documents from your Azure container
@@ -82,11 +81,11 @@ App loads documents from your Azure container
 Ask questions in the text input box
 View answer, metrics, and retrieved chunks
 
-Troubleshooting
+### Troubleshooting
 "OPENAI_API_KEY not found"  ----  Check .env  exists and has correct key
 401 Invalid API Key -----  Generate a new key from https://platform.openai.com/account/api-keys
 No documents loaded --- Upload files (Local) or check Azure container (Cloud)
 Azure load fails ----  Verify connection string and container name
 
-Dependencies
+### Dependencies
 See requirements.txt for full list.
