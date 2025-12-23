@@ -13,6 +13,27 @@ Ask questions about your documents — stored either **locally** (uploaded files
 - Highlighted best-matching retrieved chunk
 - Clean dark-themed UI
 
+User → Streamlit UI → Document Upload → Text Extraction → Chunking → Embedding → FAISS Vector Store
+Query → Embedding → Top-K Retrieval → LLM (GPT-4o-mini) → Answer + Confidence Score → Display
+
+- Front-end: Streamlit interface for uploads and queries
+- Backend: FAISS for semantic search, OpenAI embeddings for vectorization
+- LLM: GPT-4o-mini generates answers strictly from retrieved chunks
+
+##Retrieval & Generation Flow
+- Document Upload: Users upload PDFs, DOCX, or TXT files.
+- Text Extraction & Chunking: Large documents are split into smaller chunks using RecursiveCharacterTextSplitter.
+- Embedding: Each chunk is converted into a semantic vector using OpenAI embeddings.
+- Vector Storage: Embeddings are stored in FAISS for fast similarity search.
+- Query Handling: User question is embedded and matched against FAISS to retrieve top-k relevant chunks.
+- Answer Generation: Retrieved chunks are passed to GPT-4o-mini to produce a grounded answer.
+- Confidence Scoring: Measures relevance of retrieved chunks to indicate answer reliability.
+
+###Confidence Scoring Logic
+- Computed based on similarity scores of top-k retrieved chunks
+- Higher similarity → higher confidence
+
+Ensures transparency and shows how much the answer is supported by the document
 ### Project Structure
 mini-rag-assistant/
 ├── app.py                  # Main Streamlit app
